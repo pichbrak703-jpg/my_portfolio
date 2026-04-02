@@ -3,295 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pich Brak | Software Engineer</title>
+    <title>Pich Brak | Web Developer Portfolio</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <style>
         :root {
-            /* Professional Color Palette */
             --bg: #ffffff;
             --fg: #0f172a;
             --accent: #00897b;
             --accent-soft: #e0f2f1;
             --border: #e2e8f0;
             --secondary: #64748b;
-            --radius: 12px;
-            --shadow: 0 4px 20px -2px rgba(0,0,0,0.05);
+            --radius: 16px;
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
         }
 
-        /* Dark Mode Preferences */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg: #0b0f1a;
                 --fg: #f8fafc;
                 --border: #1e293b;
-                --accent-soft: #004d40;
-                --shadow: 0 4px 20px -2px rgba(0,0,0,0.3);
+                --accent-soft: rgba(0, 137, 123, 0.15);
+                --secondary: #94a3b8;
+                --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
             }
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--fg); line-height: 1.6; overflow-x: hidden; }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--fg);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- ANIMATION CLASSES --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Staggered delay for grid cards */
-        .grid .card:nth-child(2) { transition-delay: 0.1s; }
-        .grid .card:nth-child(3) { transition-delay: 0.2s; }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
+        /* --- NEW ANIMATION STYLES --- */
+        .typing-container {
+            display: inline-flex;
             align-items: center;
-            padding: 1.5rem 10%;
-            background: rgba(var(--bg), 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            transition: padding 0.3s ease;
         }
 
-        nav.scrolled {
-            padding: 1rem 10%;
-            background: var(--bg);
-        }
-
-        .nav-logo {
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -1px;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-left: 2rem;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            padding: 180px 10% 100px;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            max-width: 500px;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-img {
-            width: 100%;
-            max-width: 380px;
-            aspect-ratio: 1;
-            background: var(--accent-soft);
-            border-radius: 24% 76% 35% 65% / 49% 30% 70% 51%;
-            overflow: hidden;
-            border: 2px solid var(--accent);
-            animation: morph 8s ease-in-out infinite;
-        }
-
-        .hero-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @keyframes morph {
-            0%, 100% { border-radius: 24% 76% 35% 65% / 49% 30% 70% 51%; }
-            50% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; }
-        }
-
-        /* --- BUTTONS --- */
-        .btn {
-            padding: 14px 28px;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 700;
+        .typing-text {
             display: inline-block;
-            transition: 0.3s;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--accent);
+            width: 0;
         }
 
-        .btn-main {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 137, 123, 0.3);
+        /* Trigger animation when parent .reveal is active */
+        .reveal.active .typing-text {
+            animation: 
+                typing 2.5s steps(20, end) forwards,
+                blink-caret 0.75s step-end infinite;
+            animation-delay: 0.5s; /* Wait for reveal transition */
         }
 
-        .btn-main:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
         }
 
-        /* --- PROJECT GRID --- */
-        .section {
-            padding: 100px 10%;
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent) }
         }
+        /* --------------------------- */
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+        nav {
+            position: fixed; width: 100%; padding: 1.25rem 10%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 1000;
         }
+        @media (prefers-color-scheme: dark) { nav { background: rgba(11, 15, 26, 0.8); } }
+        .nav-logo { font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.2rem; }
+        .nav-links a { margin-left: 1.5rem; text-decoration: none; color: var(--fg); font-weight: 600; font-size: 0.85rem; }
 
-        .card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 32px;
-            border-radius: var(--radius);
-            transition: 0.3s;
+        .hero { min-height: 100vh; padding: 140px 10% 60px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+        .hero-text h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1rem; }
+        .hero-text p { color: var(--secondary); font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; }
+        .profile-meta { font-size: 0.9rem; color: var(--secondary); margin-bottom: 2rem; }
+        .profile-meta span { margin-right: 15px; border-right: 1px solid var(--border); padding-right: 15px; }
+        .profile-meta span:last-child { border: none; }
+
+        .hero-img-container { position: relative; width: 100%; max-width: 320px; aspect-ratio: 1; margin: 0 auto; }
+        .hero-img { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 4px solid var(--accent); box-shadow: var(--shadow); }
+        .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .section { padding: 80px 10%; }
+        .section-title { font-size: 1.8rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 15px; color: var(--accent); }
+        .section-title::after { content: ""; height: 1px; flex-grow: 1; background: var(--border); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .card { background: var(--bg); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius); transition: 0.3s; height: 100%; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
+        .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .card .date { font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-bottom: 10px; display: block; }
+        .card ul { padding-left: 18px; font-size: 0.9rem; color: var(--secondary); margin-top: 10px; }
+
+        .badge-group { margin-bottom: 15px; }
+        .badge-group h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--secondary); margin-bottom: 10px; letter-spacing: 1px; }
+        .badge-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge { 
+            background: var(--accent-soft); padding: 6px 14px; border-radius: 100px; font-size: 0.75rem; 
+            font-weight: 700; color: var(--accent); border: 1px solid var(--accent);
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s ease;
+            text-decoration: none;
         }
+        .badge:hover { background: var(--accent); color: white; transform: scale(1.05); }
+        .badge i { font-size: 1.1rem; }
 
-        .card:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-            transform: translateY(-5px);
+        .workshop-card { border-left: 4px solid var(--accent); padding-left: 20px; margin-bottom: 15px; }
+        .workshop-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .workshop-card p { font-size: 0.9rem; color: var(--secondary); margin-bottom: 5px; }
+
+        footer { background: var(--accent-soft); padding: 60px 10%; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-item h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        
+        .contact-link { 
+            display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--fg); 
+            font-size: 0.95rem; margin-bottom: 15px; transition: 0.3s; padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.5); 
         }
+        @media (prefers-color-scheme: dark) { .contact-link { background: rgba(255,255,255,0.05); } }
+        
+        .contact-link:hover { transform: translateX(5px); background: var(--accent); color: white !important; }
+        .contact-link i { font-size: 1.4rem; width: 20px; text-align: center; }
+        
+        .fa-linkedin { color: #0077b5; }
+        .fa-telegram { color: #26a5e4; }
+        .fa-envelope { color: #ea4335; }
+        .contact-link:hover i { color: white; }
 
-        .card h3 {
-            margin-bottom: 12px;
-            font-size: 1.4rem;
-        }
-
-        .card p {
-            color: var(--secondary);
-            font-size: 0.95rem;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding-top: 120px;
-            }
-            .hero-text p { margin: 0 auto 2.5rem; }
-            .hero-img { margin: 0 auto; }
+        @media(max-width: 968px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; }
+            .hero-text p { margin: 0 auto 2rem; }
             .nav-links { display: none; }
         }
     </style>
 </head>
+
 <body>
 
-    <nav id="navbar">
-        <a href="#" class="nav-logo">PB.DIGITAL</a>
-        <div class="nav-links">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+<nav>
+    <a href="#" class="nav-logo">PICH BRAK</a>
+    <div class="nav-links">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#workshops">Workshops</a>
+        <a href="#education">Education</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-text reveal">
+        <h1>Web Developer & 
+            <div class="typing-container">
+                <span style="color: var(--accent)" class="typing-text">UX/UI Designer</span>
+            </div>
+        </h1>
+        <div class="profile-meta">
+            <span>🇰🇭 Khmer</span> <span>Female</span> <span>Single</span> <span>Born: 2004</span>
         </div>
-    </nav>
+        <p>A Web Programmer dedicated to building secure, efficient, and user-centric systems. Skilled in PHP, Laravel, and MVC architecture with a background in IT software support.</p>
+        <div class="badge-container">
+            <span class="badge">Khmer: Mother Tongue</span>
+            <span class="badge">English: Intermediate</span>
+        </div>
+    </div>
+    <div class="hero-img-container reveal">
+        <div class="hero-img">
+            <img src="IMG_9640.JPG" alt="Pich Brak Portrait">
+        </div>
+    </div>
+</section>
 
-    <main>
-        <section class="hero">
-            <div class="hero-text reveal">
-                <h1>Building the <span style="color: var(--accent)">Future</span> of Web.</h1>
-                <p>Pich Brak — Full Stack Developer based in Cambodia. Specializing in high-performance Laravel backends and reactive Vue.js interfaces.</p>
-                <a href="#work" class="btn btn-main">View Case Studies</a>
-            </div>
-            <div class="hero-img reveal">
-                <img src="IMG_9640.JPG" alt="Pich Brak Profile">
-            </div>
-        </section>
+<section class="section" id="experience">
+    <h2 class="section-title reveal">Professional Experience</h2>
+    <div class="grid">
+        <div class="card reveal">
+            <span class="date">Nov 2025 – Feb 2026</span>
+            <h3>PHP Programmer (Remote)</h3>
+            <ul>
+                <li>Designed a PIN-based authentication system with database-controlled security.</li>
+                <li>Developed product management systems with full CRUD functionality using PHP/MySQL.</li>
+            </ul>
+        </div>
+        <div class="card reveal">
+            <span class="date">Aug 2025 – Nov 2025</span>
+            <h3>IT Software Supporter Internship</h3>
+            <p><strong>103 NPT Digital Technology PLC</strong></p>
+            <ul>
+                <li>Troubleshot system errors and explained technical causes to customers.</li>
+                <li>Tested DiERP modules to ensure software stability and performance.</li>
+                <li>Designed responsive app screens using Figma.</li>
+            </ul>
+        </div>
+    </div>
+</section>
 
-        <section class="section" id="work">
-            <h2 class="reveal" style="margin-bottom: 40px; font-size: 2rem;">Selected Work</h2>
-            <div class="grid">
-                <div class="card reveal">
-                    <h3>01. Enterprise ERP</h3>
-                    <p>A custom resource planning tool for local logistics firms. Built with Laravel and MySQL.</p>
+<section class="section" id="projects">
+    <h2 class="section-title reveal">Major Projects</h2>
+    <div class="grid">
+        <div class="card reveal">
+            <span class="date">Mar 10 – Apr 28, 2025</span>
+            <h3>Coffee Shop POS System (VC1)</h3>
+            <p><strong>Role: Backend Developer & QA Manager</strong></p>
+            <ul>
+                <li>Built a robust system for sales, payments, and stock data using PHP and MySQL.</li>
+                <li>Ensured backend stability by debugging database bottlenecks and fixing query errors.</li>
+                <li>Successfully integrated the backend architecture with the frontend UI.</li>
+            </ul>
+        </div>
+
+        <div class="card reveal">
+            <span class="date">Jan 13 – Jan 27, 2025</span>
+            <h3>JavaScript E-Commerce Project</h3>
+            <p><strong>Role: Team Member</strong></p>
+            <ul>
+                <li>Integrated product search, dynamic filters, and shopping cart logic.</li>
+                <li>Ensured 100% responsiveness across mobile, tablet, and desktop devices.</li>
+            </ul>
+        </div>
+
+        <div class="card reveal">
+            <span class="date">Nov 18 – Dec 02, 2024</span>
+            <h3>Python Video Downloader & Editor</h3>
+            <p><strong>Role: Team Member</strong></p>
+            <ul>
+                <li>Created a UI-driven tool using Tkinter and Python to download, cut, and join videos.</li>
+                <li>Managed version control with Git and GitHub to maintain code stability.</li>
+            </ul>
+        </div>
+
+        <div class="card reveal">
+            <span class="date">Oct 21 – Nov 03, 2024</span>
+            <h3>Web Design Project (Online Shop)</h3>
+            <p><strong>Role: Leader Team</strong></p>
+            <ul>
+                <li>Led the development of semantic HTML structures for main website pages.</li>
+                <li>Styled the interface using CSS and SASS for a clean, professional UX.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="skills">
+    <h2 class="section-title reveal">Expertise</h2>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="badge-group">
+                <h4>Hard Skills</h4>
+                <div class="badge-container">
+                    <span class="badge"><i class="devicon-php-plain colored"></i> PHP</span>
+                    <span class="badge"><i class="devicon-laravel-original colored"></i> Laravel</span>
+                    <span class="badge"><i class="devicon-nodejs-plain colored"></i> Node.js</span> 
+                    <span class="badge"><i class="devicon-wordpress-plain colored"></i> WordPress</span>
+                    <span class="badge"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+                    <span class="badge"><i class="devicon-vuejs-plain colored"></i> Vue.js</span>
+                    <span class="badge"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
+                    <span class="badge"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
+                    <span class="badge"><i class="devicon-sass-original colored"></i> Sass</span>
+                    <span class="badge"><i class="devicon-html5-plain colored"></i> HTML</span>
+                    <span class="badge"><i class="devicon-css3-plain colored"></i> CSS</span>
                 </div>
-                <div class="card reveal">
-                    <h3>02. Fintech Dashboard</h3>
-                    <p>Real-time data visualization using Vue 3 and Tailwind CSS for financial monitoring.</p>
-                </div>
-                <div class="card reveal">
-                    <h3>03. E-Learning Platform</h3>
-                    <p>Scalable video streaming and quiz architecture for digital education providers.</p>
+            </div>
+            <div class="badge-group">
+                <h4>Concepts</h4>
+                <div class="badge-container">
+                    <span class="badge">OOP</span> 
+                    <span class="badge">MVC Pattern</span> 
+                    <span class="badge">Algorithms</span> 
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+        <div class="card reveal">
+            <div class="badge-group">
+                <h4>Tools</h4>
+                <div class="badge-container">
+                    <span class="badge"><i class="devicon-figma-plain colored"></i> Figma</span>
+                    <span class="badge"><i class="devicon-git-plain colored"></i> Git</span>
+                    <span class="badge"><i class="devicon-github-original colored"></i> GitHub</span>
+                    <span class="badge"><i class="devicon-jira-plain colored"></i> Jira</span> 
+                    <span class="badge"><i class="devicon-vscode-plain colored"></i> VS Code</span>
+                </div>
+            </div>
+            <div class="badge-group">
+                <h4>Soft Skills</h4>
+                <div class="badge-container">
+                    <span class="badge">Leadership</span> 
+                    <span class="badge">Teamwork</span> 
+                    <span class="badge">Problem-solving</span> 
+                    <span class="badge">Honesty</span> 
+                    <span class="badge">Respect</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <footer style="padding: 60px 10%; border-top: 1px solid var(--border); text-align: center;">
-        <p style="color: var(--secondary); font-weight: 600;">© 2026 Pich Brak • Phnom Penh</p>
-    </footer>
+<section class="section" id="workshops">
+    <h2 class="section-title reveal">Technical Workshops</h2>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="workshop-card">
+                <span class="date">Jan 18 & 25, 2025</span>
+                <h3>Product Owner Workshop</h3>
+                <p><strong>Facilitator:</strong> Felix Leuker</p>
+                <ul>
+                    <li>Intro to Product Owner role and project impact.</li>
+                    <li>Requirement gathering and managing backlogs in Jira.</li>
+                </ul>
+            </div>
+        </div>
 
-    <script>
-        // Reveal elements on scroll
-        const observerOptions = {
-            threshold: 0.12,
-            rootMargin: "0px 0px -50px 0px"
-        };
+        <div class="card reveal">
+            <div class="workshop-card">
+                <span class="date">Feb 7 & Mar 14, 2025</span>
+                <h3>UX/UI Design Workshop</h3>
+                <p><strong>Facilitator:</strong> PJ (Sourcemax Asia Co., Ltd)</p>
+                <ul>
+                    <li>Translating project requirements into prototypes and wireframes.</li>
+                </ul>
+            </div>
+        </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+        <div class="card reveal">
+            <div class="workshop-card">
+                <span class="date">Mar 19, 2025</span>
+                <h3>Data Analytics Workshop</h3>
+                <p><strong>Facilitators:</strong> Felix Leuker & Solution BI</p>
+                <ul>
+                    <li>Data visualization using Python and Power BI.</li>
+                </ul>
+            </div>
+        </div>
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        <div class="card reveal">
+            <div class="workshop-card">
+                <span class="date">Feb 8, 2025</span>
+                <h3>Project Management Workshop</h3>
+                <p><strong>Facilitator:</strong> Felix Leuker</p>
+                <ul>
+                    <li>Agile workflows and collaboration using Jira and Git.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+<section class="section" id="education">
+    <h2 class="section-title reveal">Education & References</h2>
+    <div class="grid">
+        <div class="card reveal">
+            <h3>Education</h3>
+            <div class="workshop-card" style="margin-top: 15px;">
+                <span class="date">2024 – 2025</span>
+                <h4>Associate Degree: Web Programming</h4>
+                <p>Passerelles numériques Cambodia (PNC)</p>
+            </div>
+        </div>
+        <div class="card reveal">
+            <h3>References</h3>
+            <div class="workshop-card" style="margin-top: 15px;">
+                <h4>Mr. Rady Y</h4>
+                <p>Web Coordinator at PNC</p>
+                <p>📞 012 251 803</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="footer-grid reveal">
+        <div class="footer-item">
+            <h4>Contact Details</h4>
+            <a href="mailto:pich.brak@student.passerellesnumeriques.org" class="contact-link">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Gmail Me</span>
+            </a>
+            <div class="contact-link" style="cursor: default;">
+                <i class="fa-solid fa-phone" style="color: var(--accent);"></i>
+                <span>096 743 3572</span>
+            </div>
+        </div>
+
+        <div class="footer-item">
+            <h4>Social Connect</h4>
+            <a href="https://www.linkedin.com/in/pich-brak-8b9512386" target="_blank" class="contact-link">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="http://t.me/pich_pich01" target="_blank" class="contact-link">
+                <i class="fa-brands fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+        </div>
+
+        <div class="footer-item">
+            <h4>Company Visits</h4>
+            <p style="font-size: 0.9rem; color: var(--secondary);">
+                Amret, TotalEnergies, Bikay, Solution BI
+            </p>
+            <h4 style="margin-top: 20px;">Location</h4>
+            <p style="font-size: 0.9rem; color: var(--secondary);">
+                Phum Tropeang Chhuk, Steung Meanchey, Phnom Penh
+            </p>
+        </div>
+    </div>
+    <p style="margin-top: 60px; text-align: center; opacity: 0.4; font-size: 0.75rem;">© 2026 PICH BRAK. Built with Code & Passion.</p>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('active');
         });
-    </script>
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
