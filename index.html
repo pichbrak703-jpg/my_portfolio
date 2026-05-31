@@ -1,461 +1,443 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pich Brak | Web Developer Portfolio</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --bg: #ffffff;
-            --fg: #0f172a;
-            --accent: #00897b;
-            --accent-soft: #e0f2f1;
-            --border: #e2e8f0;
-            --secondary: #64748b;
-            --radius: 16px;
-            --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
-        }
+<title>Pich Brak | Junior Web Developer</title>
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #0b0f1a;
-                --fg: #f8fafc;
-                --border: #1e293b;
-                --accent-soft: rgba(0, 137, 123, 0.15);
-                --secondary: #94a3b8;
-                --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-            }
-        }
+<meta name="description" content="Pich Brak - Junior Web Developer skilled in PHP, Laravel, WordPress, UX/UI Design, and MySQL.">
+<meta name="keywords" content="Web Developer, PHP, Laravel, WordPress, MySQL, Junior Developer">
+<meta name="author" content="Pich Brak">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--fg); line-height: 1.6; overflow-x: hidden; }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+    scroll-behavior:smooth;
+}
 
-        /* --- TYPING ANIMATION --- */
-        .typing-container { display: inline-flex; align-items: center; }
-        .typing-text {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid var(--accent);
-            width: 0;
-        }
+body{
+    background:#f8fafc;
+    color:#111827;
+    line-height:1.7;
+}
 
-        .reveal.active .typing-text {
-            animation: 
-                typing 2.5s steps(20, end) forwards,
-                blink-caret 0.75s step-end infinite;
-            animation-delay: 0.5s;
-        }
+/* NAVBAR */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 10%;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
 
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent) } }
+.logo{
+    font-size:20px;
+    font-weight:700;
+    color:#0f766e;
+}
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; width: 100%; padding: 1.25rem 10%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 1000;
-        }
-        @media (prefers-color-scheme: dark) { nav { background: rgba(11, 15, 26, 0.8); } }
-        
-        .nav-logo { font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.2rem; z-index: 1002; }
-        .nav-links a { margin-left: 1.5rem; text-decoration: none; color: var(--fg); font-weight: 600; font-size: 0.85rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
+nav a{
+    text-decoration:none;
+    color:#111827;
+    margin-left:20px;
+    font-weight:500;
+    transition:.3s;
+}
 
-        /* Mobile Menu Toggle */
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--fg); z-index: 1002; transition: 0.3s; }
+nav a:hover{
+    color:#0f766e;
+}
 
-        @media (max-width: 968px) {
-            nav { padding: 1rem 5%; }
-            .menu-toggle { display: block; }
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
-                background: var(--bg); display: flex; flex-direction: column;
-                align-items: center; justify-content: center; gap: 2.5rem;
-                transition: 0.4s ease-in-out; box-shadow: var(--shadow); border-left: 1px solid var(--border);
-            }
-            .nav-links.active { right: 0; }
-            .nav-links a { margin-left: 0; font-size: 1.1rem; }
-        }
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1.4fr .8fr;
+    align-items:center;
+    gap:50px;
+    padding:120px 10%;
+}
 
-        /* --- HERO SECTION --- */
-        .hero { min-height: 100vh; padding: 140px 10% 60px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
-        .hero-text h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1rem; }
-        .hero-text p { color: var(--secondary); font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; }
-        .profile-meta { font-size: 0.9rem; color: var(--secondary); margin-bottom: 2rem; }
-        .profile-meta span { margin-right: 15px; border-right: 1px solid var(--border); padding-right: 15px; }
-        .profile-meta span:last-child { border: none; }
+.hero h1{
+    font-size:55px;
+    margin-bottom:10px;
+}
 
-        .hero-img-container { position: relative; width: 100%; max-width: 320px; aspect-ratio: 1; margin: 0 auto; }
-        .hero-img { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 4px solid var(--accent); box-shadow: var(--shadow); }
-        .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+.hero p{
+    color:#4b5563;
+    margin-top:15px;
+    max-width:650px;
+}
 
-        /* --- SECTIONS & CARDS --- */
-        .section { padding: 80px 10%; }
-        .section-title { font-size: 1.8rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 15px; color: var(--accent); }
-        .section-title::after { content: ""; height: 1px; flex-grow: 1; background: var(--border); }
+/* TYPING EFFECT */
+.typing{
+    color:#0f766e;
+    font-size:20px;
+    font-weight:600;
+    overflow:hidden;
+    white-space:nowrap;
+    border-right:3px solid #0f766e;
+    width:0;
+    animation:
+        typing 4s steps(40,end) forwards,
+        blink .8s infinite;
+}
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-        .card { background: var(--bg); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius); transition: 0.3s; height: 100%; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: var(--shadow); }
-        .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
-        .card .date { font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-bottom: 10px; display: block; }
-        .card ul { padding-left: 18px; font-size: 0.9rem; color: var(--secondary); margin-top: 10px; }
+@keyframes typing{
+    from{width:0}
+    to{width:100%}
+}
 
-        /* --- BADGES --- */
-        .badge-group { margin-bottom: 15px; }
-        .badge-group h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--secondary); margin-bottom: 10px; letter-spacing: 1px; }
-        .badge-container { display: flex; flex-wrap: wrap; gap: 8px; }
-        .badge { 
-            background: var(--accent-soft); padding: 6px 14px; border-radius: 100px; font-size: 0.75rem; 
-            font-weight: 700; color: var(--accent); border: 1px solid var(--accent);
-            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s ease; text-decoration: none;
-        }
-        .badge:hover { background: var(--accent); color: white; transform: scale(1.05); }
+@keyframes blink{
+    50%{border-color:transparent;}
+}
 
-        /* --- WORKSHOPS --- */
-        .workshop-card { border-left: 4px solid var(--accent); padding-left: 20px; margin-bottom: 15px; }
-        .workshop-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
-        .workshop-card p { font-size: 0.9rem; color: var(--secondary); margin-bottom: 5px; }
+/* PROFILE */
+.profile{
+    width:280px;
+    height:280px;
+    margin:auto;
+    border-radius:50%;
+    overflow:hidden;
+    border:6px solid #0f766e;
+    box-shadow:0 15px 35px rgba(15,118,110,.25);
+    animation:float 4s ease-in-out infinite;
+}
 
-        /* --- FOOTER & CONTACT --- */
-        footer { background: var(--accent-soft); padding: 60px 10%; border-top: 1px solid var(--border); }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
-        .footer-item h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
-        
-        .contact-link { 
-            display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--fg); 
-            font-size: 0.95rem; margin-bottom: 15px; transition: 0.3s; padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.5); 
-        }
-        @media (prefers-color-scheme: dark) { .contact-link { background: rgba(255,255,255,0.05); } }
-        .contact-link:hover { transform: translateX(5px); background: var(--accent); color: white !important; }
-        
-        .fa-linkedin { color: #0077b5; }
-        .fa-telegram { color: #26a5e4; }
-        .fa-envelope { color: #ea4335; }
-        .contact-link:hover i { color: white; }
+.profile img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 
-        @media(max-width: 968px) {
-            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; }
-            .hero-text p { margin: 0 auto 2rem; }
-            .section { padding: 60px 5%; }
-        }
-    </style>
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
+}
+
+/* BADGES */
+.badge{
+    display:inline-block;
+    padding:8px 14px;
+    margin:6px;
+    border-radius:30px;
+    border:1px solid #d1d5db;
+    background:white;
+    transition:.3s;
+}
+
+.badge:hover{
+    background:#0f766e;
+    color:white;
+}
+
+/* BUTTON */
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 22px;
+    background:#0f766e;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#115e59;
+    transform:translateY(-3px);
+}
+
+/* SECTION */
+section{
+    padding:80px 10%;
+}
+
+.section-title{
+    font-size:32px;
+    margin-bottom:30px;
+    color:#0f766e;
+}
+
+/* CARD */
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:20px;
+    border:1px solid #e5e7eb;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+}
+
+/* ANIMATION */
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    animation:fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* CONTACT */
+.contact p{
+    margin-bottom:10px;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #e5e7eb;
+    color:#6b7280;
+    background:white;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .hero{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    nav{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .profile{
+        width:220px;
+        height:220px;
+    }
+}
+</style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav>
-    <a href="#" class="nav-logo">PICH BRAK</a>
-    
-    <div class="menu-toggle" id="mobile-menu">
-        <i class="fa-solid fa-bars"></i>
-    </div>
+    <div class="logo">PICH BRAK</div>
 
-    <div class="nav-links" id="nav-list">
+    <div>
         <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
-        <a href="#workshops">Workshops</a>
-        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
     </div>
 </nav>
 
-<section class="hero">
-    <div class="hero-text reveal">
-        <h1>Web Developer & 
-            <div class="typing-container">
-                <span style="color: var(--accent)" class="typing-text">UX/UI Designer</span>
-            </div>
-        </h1>
-        <div class="profile-meta">
-            <span>🇰🇭 Khmer</span> <span>Female</span> <span>Single</span> <span>Born: 2004</span>
+<!-- HERO -->
+<header class="hero">
+
+    <div class="fade-up">
+
+        <h1>Pich Brak</h1>
+
+        <h2 class="typing">
+            Junior Web Developer | WordPress & Laravel Learner
+        </h2>
+
+        <p>
+            Passionate Junior Web Developer with hands-on experience in PHP,
+            Laravel, WordPress, MySQL, HTML, CSS, and JavaScript.
+            Interested in building responsive websites, learning modern web
+            technologies, and growing within a professional development team.
+        </p>
+
+        <div style="margin-top:20px;">
+            <span class="badge">PHP</span>
+            <span class="badge">Laravel</span>
+            <span class="badge">WordPress</span>
+            <span class="badge">MySQL</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">Vue.js</span>
         </div>
-        <p>A Web Programmer dedicated to building secure, efficient, and user-centric systems. Skilled in PHP, Laravel, and MVC architecture with a background in IT software support.</p>
-        <div class="badge-container">
-            <span class="badge">Khmer: Mother Tongue</span>
-            <span class="badge">English: Intermediate</span>
-        </div>
+
+        <a href="Pich_Brak.pdf" class="btn" download>
+            Download CV
+        </a>
+
     </div>
-    <div class="hero-img-container reveal">
-        <div class="hero-img">
-            <img src="IMG_9640.JPG" alt="Pich Brak Portrait">
-        </div>
+
+    <div class="profile">
+        <img src="IMG_9640.JPG" alt="Pich Brak">
     </div>
+
+</header>
+
+<!-- CAREER OBJECTIVE -->
+<section class="fade-up">
+
+    <h2 class="section-title">Career Objective</h2>
+
+    <div class="card">
+        Seeking an entry-level web development opportunity where I can apply
+        my knowledge of PHP, Laravel, WordPress, and MySQL while continuing
+        to learn, contribute to real-world projects, and grow as a software
+        developer.
+    </div>
+
 </section>
 
-<section class="section" id="experience">
-    <h2 class="section-title reveal">Professional Experience</h2>
+<!-- EXPERIENCE -->
+<section id="experience" class="fade-up">
+
+    <h2 class="section-title">Experience</h2>
+
+    <div class="card">
+
+        <h3>WordPress UX/UI Designer</h3>
+        <p><strong>Our Stuff Carpet | Dec 2025 – Present</strong></p>
+
+        <ul>
+            <li>Designed and maintained responsive WordPress websites.</li>
+            <li>Improved UX/UI for company websites and landing pages.</li>
+            <li>Created SEO-friendly content and optimized website performance.</li>
+            <li>Updated product pages, banners, and digital content.</li>
+            <li>Used WordPress, Elementor, Canva, HTML, CSS, and SEO tools.</li>
+            <li>Created QR codes for digital marketing campaigns.</li>
+            <li>Managed and published digital content across YouTube, Google Business Profile, Google Maps, Telegram Channel, and LinkedIn.</li>
+           
+        </ul>
+
+    </div>
+
+    <div class="card">
+
+        <h3>IT Software Support Intern</h3>
+        <p><strong>103 NPT Digital Technology PLC | Aug 2025 – Nov 2025</strong></p>
+
+        <ul>
+            <li>Provided technical support to users.</li>
+            <li>Diagnosed and resolved software issues.</li>
+            <li>Tested DiERP modules for quality assurance.</li>
+            <li>Assisted with UI design using Figma.</li>
+            <li>Reported bugs and supported QA processes.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="fade-up">
+
+    <h2 class="section-title">Technical Skills</h2>
+
+    <div class="card">
+        <p><strong>Programming:</strong> PHP, JavaScript, HTML5, CSS3</p>
+        <p><strong>Frameworks:</strong> Laravel, Vue.js</p>
+        <p><strong>CMS:</strong> WordPress, Elementor</p>
+        <p><strong>Database:</strong> MySQL</p>
+        <p><strong>Tools:</strong> Git, GitHub, VS Code, Figma, Canva</p>
+        <p><strong>Other:</strong> Responsive Design, UI/UX, SEO Basics</p>
+    </div>
+
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="fade-up">
+
+    <h2 class="section-title">Projects</h2>
+ 
     <div class="grid">
-        <div class="card reveal">
-            <span class="date">Nov 2025 – Feb 2026</span>
-            <h3>PHP Programmer (Remote)</h3>
+
+        <div class="card">
+            <h3>Coffee Shop POS System</h3>
+            <p><strong>Backend Developer & QA Manager</strong></p>
+
             <ul>
-                <li>Designed a PIN-based authentication system with database-controlled security.</li>
-                <li>Developed product management systems with full CRUD functionality using PHP/MySQL.</li>
+                <li>Developed backend modules using PHP and MySQL.</li>
+                <li>Managed products, orders, inventory, and payments.</li>
+                <li>Created and tested SQL queries.</li>
+                <li>Performed QA testing and bug fixing.</li>
             </ul>
         </div>
-        <div class="card reveal">
-            <span class="date">Aug 2025 – Nov 2025</span>
-            <h3>IT Software Supporter Internship</h3>
-            <p><strong>103 NPT Digital Technology PLC</strong></p>
+
+        <div class="card">
+            <h3>Video Downloader & Editing Application</h3>
+            <p><strong>Python Team Project</strong></p>
+
             <ul>
-                <li>Troubleshot system errors and explained technical causes to customers.</li>
-                <li>Tested DiERP modules to ensure software stability and performance.</li>
-                <li>Designed responsive app screens using Figma.</li>
+                <li>Built a video downloader and editor using Python.</li>
+                <li>Created user interface with Tkinter.</li>
+                <li>Used Git for collaboration.</li>
+                <li>Fixed bugs and improved performance.</li>
             </ul>
         </div>
+
+        <div class="card">
+            <h3>E-Commerce Website</h3>
+
+            <ul>
+                <li>Built shopping cart functionality.</li>
+                <li>Implemented product filtering.</li>
+                <li>Designed responsive user interface.</li>
+                <li>Used HTML, CSS, JavaScript, and MySQL.</li>
+            </ul>
+        </div>
+
     </div>
+
 </section>
 
-<section class="section" id="projects">
-    <h2 class="section-title reveal">Major Projects</h2>
-    <div class="grid">
-        <div class="card reveal">
-            <span class="date">Mar 10 – Apr 28, 2025</span>
-            <h3>Coffee Shop POS System (VC1)</h3>
-            <p><strong>Role: Backend Developer & QA Manager</strong></p>
-            <ul>
-                <li>Built a robust system for sales, payments, and stock data using PHP and MySQL.</li>
-                <li>Ensured backend stability by debugging database bottlenecks and fixing query errors.</li>
-                <li>Successfully integrated the backend architecture with the frontend UI.</li>
-            </ul>
-        </div>
+<!-- CONTACT -->
+<section id="contact" class="fade-up">
 
-        <div class="card reveal">
-            <span class="date">Jan 13 – Jan 27, 2025</span>
-            <h3>JavaScript E-Commerce Project</h3>
-            <p><strong>Role: Team Member</strong></p>
-            <ul>
-                <li>Integrated product search, dynamic filters, and shopping cart logic.</li>
-                <li>Ensured 100% responsiveness across mobile, tablet, and desktop devices.</li>
-            </ul>
-        </div>
+    <h2 class="section-title">Contact</h2>
 
-        <div class="card reveal">
-            <span class="date">Nov 18 – Dec 02, 2024</span>
-            <h3>Python Video Downloader & Editor</h3>
-            <p><strong>Role: Team Member</strong></p>
-            <ul>
-                <li>Created a UI-driven tool using Tkinter and Python to download, cut, and join videos.</li>
-                <li>Managed version control with Git and GitHub to maintain code stability.</li>
-            </ul>
-        </div>
+    <div class="card contact">
+        <p><strong>Email:</strong> pichbrak703@gmail.com</p>
+        <p><strong>Phone:</strong> 096 743 3572</p>
+        <p><strong>Location:</strong> Phnom Penh, Cambodia</p>
 
-        <div class="card reveal">
-            <span class="date">Oct 21 – Nov 03, 2024</span>
-            <h3>Web Design Project (Online Shop)</h3>
-            <p><strong>Role: Leader Team</strong></p>
-            <ul>
-                <li>Led the development of semantic HTML structures for main website pages.</li>
-                <li>Styled the interface using CSS and SASS for a clean, professional UX.</li>
-            </ul>
-        </div>
+        <a href="mailto:pichbrak703@gmail.com" class="btn">
+            Send Email
+        </a>
     </div>
+
 </section>
 
-<section class="section" id="skills">
-    <h2 class="section-title reveal">Expertise</h2>
-    <div class="grid">
-        <div class="card reveal">
-            <div class="badge-group">
-                <h4>Hard Skills</h4>
-                <div class="badge-container">
-                    <span class="badge"><i class="devicon-php-plain colored"></i> PHP</span>
-                    <span class="badge"><i class="devicon-laravel-original colored"></i> Laravel</span>
-                    <span class="badge"><i class="devicon-nodejs-plain colored"></i> Node.js</span> 
-                    <span class="badge"><i class="devicon-wordpress-plain colored"></i> WordPress</span>
-                    <span class="badge"><i class="devicon-mysql-plain colored"></i> MySQL</span>
-                    <span class="badge"><i class="devicon-vuejs-plain colored"></i> Vue.js</span>
-                    <span class="badge"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
-                    <span class="badge"><i class="devicon-bootstrap-plain colored"></i> Bootstrap</span>
-                    <span class="badge"><i class="devicon-sass-original colored"></i> Sass</span>
-                    <span class="badge"><i class="devicon-html5-plain colored"></i> HTML</span>
-                    <span class="badge"><i class="devicon-css3-plain colored"></i> CSS</span>
-                </div>
-            </div>
-            <div class="badge-group">
-                <h4>Concepts</h4>
-                <div class="badge-container">
-                    <span class="badge">OOP</span> 
-                    <span class="badge">MVC Pattern</span> 
-                    <span class="badge">Algorithms</span> 
-                </div>
-            </div>
-        </div>
-        <div class="card reveal">
-            <div class="badge-group">
-                <h4>Tools</h4>
-                <div class="badge-container">
-                    <span class="badge"><i class="devicon-figma-plain colored"></i> Figma</span>
-                    <span class="badge"><i class="devicon-git-plain colored"></i> Git</span>
-                    <span class="badge"><i class="devicon-github-original colored"></i> GitHub</span>
-                    <span class="badge"><i class="devicon-jira-plain colored"></i> Jira</span> 
-                    <span class="badge"><i class="devicon-vscode-plain colored"></i> VS Code</span>
-                </div>
-            </div>
-            <div class="badge-group">
-                <h4>Soft Skills</h4>
-                <div class="badge-container">
-                    <span class="badge">Leadership</span> 
-                    <span class="badge">Teamwork</span> 
-                    <span class="badge">Problem-solving</span> 
-                    <span class="badge">Honesty</span> 
-                    <span class="badge">Respect</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="workshops">
-    <h2 class="section-title reveal">Technical Workshops</h2>
-    <div class="grid">
-        <div class="card reveal">
-            <div class="workshop-card">
-                <span class="date">Jan 18 & 25, 2025</span>
-                <h3>Product Owner Workshop</h3>
-                <p><strong>Facilitator:</strong> Felix Leuker</p>
-                <ul>
-                    <li>Intro to Product Owner role and project impact.</li>
-                    <li>Requirement gathering and managing backlogs in Jira.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="card reveal">
-            <div class="workshop-card">
-                <span class="date">Feb 7 & Mar 14, 2025</span>
-                <h3>UX/UI Design Workshop</h3>
-                <p><strong>Facilitator:</strong> PJ (Sourcemax Asia Co., Ltd)</p>
-                <ul>
-                    <li>Translating project requirements into prototypes and wireframes.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="card reveal">
-            <div class="workshop-card">
-                <span class="date">Mar 19, 2025</span>
-                <h3>Data Analytics Workshop</h3>
-                <p><strong>Facilitators:</strong> Felix Leuker & Solution BI</p>
-                <ul>
-                    <li>Data visualization using Python and Power BI.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="card reveal">
-            <div class="workshop-card">
-                <span class="date">Feb 8, 2025</span>
-                <h3>Project Management Workshop</h3>
-                <p><strong>Facilitator:</strong> Felix Leuker</p>
-                <ul>
-                    <li>Agile workflows and collaboration using Jira and Git.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="education">
-    <h2 class="section-title reveal">Education & References</h2>
-    <div class="grid">
-        <div class="card reveal">
-            <h3>Education</h3>
-            <div class="workshop-card" style="margin-top: 15px;">
-                <span class="date">2024 – 2025</span>
-                <h4>Associate Degree: Web Programming</h4>
-                <p>Passerelles numériques Cambodia (PNC)</p>
-            </div>
-        </div>
-        <div class="card reveal">
-            <h3>References</h3>
-            <div class="workshop-card" style="margin-top: 15px;">
-                <h4>Mr. Rady Y</h4>
-                <p>Web Coordinator at PNC</p>
-                <p>📞 012 251 803</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer id="contact">
-    <div class="footer-grid reveal">
-        <div class="footer-item">
-            <h4>Contact Details</h4>
-            <a href="mailto:pich.brak@student.passerellesnumeriques.org" class="contact-link">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Gmail Me</span>
-            </a>
-            <div class="contact-link" style="cursor: default;">
-                <i class="fa-solid fa-phone" style="color: var(--accent);"></i>
-                <span>096 743 3572</span>
-            </div>
-        </div>
-
-        <div class="footer-item">
-            <h4>Social Connect</h4>
-            <a href="https://www.linkedin.com/in/pich-brak-8b9512386" target="_blank" class="contact-link">
-                <i class="fa-brands fa-linkedin"></i>
-                <span>LinkedIn</span>
-            </a>
-            <a href="http://t.me/pich_pich01" target="_blank" class="contact-link">
-                <i class="fa-brands fa-telegram"></i>
-                <span>Telegram</span>
-            </a>
-        </div>
-
-        <div class="footer-item">
-            <h4>Location</h4>
-            <p style="font-size: 0.9rem; color: var(--secondary);">
-                Phum Tropeang Chhuk, Steung Meanchey, Phnom Penh
-            </p>
-            <h4 style="margin-top: 20px;">Exposure</h4>
-            <p style="font-size: 0.9rem; color: var(--secondary);">
-                Amret, TotalEnergies, Bikay, Solution BI
-            </p>
-        </div>
-    </div>
-    <p style="margin-top: 60px; text-align: center; opacity: 0.4; font-size: 0.75rem;">© 2026 PICH BRAK. Built with Code & Passion.</p>
+<footer>
+    © 2026 Pich Brak | Junior Web Developer Portfolio
 </footer>
-
-<script>
-    // Intersection Observer for Scroll Animations
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) entry.target.classList.add('active');
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Responsive Mobile Menu Toggle
-    const menuToggle = document.getElementById('mobile-menu');
-    const navList = document.getElementById('nav-list');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    menuToggle.addEventListener('click', () => {
-        navList.classList.toggle('active');
-        const icon = menuToggle.querySelector('i');
-        icon.classList.toggle('fa-bars');
-        icon.classList.toggle('fa-xmark');
-    });
-
-    // Close menu when clicking a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navList.classList.remove('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.add('fa-bars');
-            icon.classList.remove('fa-xmark');
-        });
-    });
-</script>
 
 </body>
 </html>
+```
