@@ -1,3 +1,4 @@
+/* RESET */
 * {
     margin: 0;
     padding: 0;
@@ -27,8 +28,8 @@ nav {
 }
 
 .logo {
-    font-weight: 700;
     font-size: 20px;
+    font-weight: 700;
     color: #60a5fa;
 }
 
@@ -38,10 +39,12 @@ nav {
 }
 
 .nav-links a {
-    color: white;
+    color: #e5e7eb;
     text-decoration: none;
+    position: relative;
 }
 
+/* MENU ICON */
 .menu-toggle {
     display: none;
     font-size: 30px;
@@ -155,10 +158,10 @@ footer {
     .nav-links {
         position: absolute;
         top: 70px;
-        right: 20px;
+        right: 15px;
         background: #111827;
         flex-direction: column;
-        width: 200px;
+        width: 220px;
         display: none;
         padding: 15px;
         border-radius: 10px;
@@ -169,6 +172,8 @@ footer {
     }
 
     .hero {
+        flex-direction: column;
+        text-align: center;
         padding: 60px 20px;
     }
 
@@ -176,14 +181,23 @@ footer {
         font-size: 32px;
     }
 
+    .hero h2 {
+        font-size: 18px;
+    }
+
     .profile img {
         width: 200px;
         height: 200px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
     }
 }
 
 /* SMALL PHONE */
 @media (max-width: 480px) {
+
     .hero h1 {
         font-size: 26px;
     }
