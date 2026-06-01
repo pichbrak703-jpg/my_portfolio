@@ -1,33 +1,45 @@
-// Fade animation on scroll
+/* MOBILE MENU */
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
 
-const observer = new IntersectionObserver((entries) => {
+menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
 
-    entries.forEach((entry) => {
+/* CLOSE MENU ON CLICK */
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
+});
 
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
+/* SCROLL REVEAL ANIMATION */
+const cards = document.querySelectorAll(".card");
+
+function showCards() {
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            card.classList.add("show");
         }
-
     });
+}
 
-});
+window.addEventListener("scroll", showCards);
+showCards();
 
-document.querySelectorAll('section').forEach((section) => {
-    observer.observe(section);
-});
+/* TYPING EFFECT */
+const text = "Junior Web Developer | UX/UI Designer";
+let i = 0;
+const typingElement = document.querySelector(".hero h2");
 
-// Smooth navbar active effect
+function typeEffect() {
+    if (i < text.length) {
+        typingElement.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 70);
+    }
+}
 
-const links = document.querySelectorAll('.nav-links a');
-
-links.forEach(link => {
-
-    link.addEventListener('click', function () {
-
-        links.forEach(item => item.classList.remove('active'));
-
-        this.classList.add('active');
-
-    });
-
-});
+typingElement.innerHTML = "";
+typeEffect();
