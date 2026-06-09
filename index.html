@@ -1,218 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pich Brak | Junior Web Developer</title>
+    
+    <!-- Google Fonts: Inter for that clean, tech look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6366f1; /* Modern Indigo */
+            --bg: #0f172a;      /* Deep Slate */
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #22d3ee;
+        }
 
-<title>Pich Brak | Junior Web Developer</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-<meta name="description" content="Pich Brak - Junior Web Developer skilled in PHP, Laravel, WordPress, UX/UI Design, and MySQL.">
-<meta name="keywords" content="Web Developer, PHP, Laravel, WordPress, MySQL, Junior Developer">
-<meta name="author" content="Pich Brak">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-<!-- External CSS -->
-<link rel="stylesheet" href="style.css">
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--primary);
+        }
 
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+            background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-img-container img {
+            width: 320px;
+            height: 320px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* --- Global Components --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* --- Badges --- */
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--primary);
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* --- Experience List --- */
+        ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        ul li::before {
+            content: "▹";
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column-reverse;
+                justify-content: center;
+                text-align: center;
+                padding-top: 100px;
+            }
+            .hero-text h1 { font-size: 2.5rem; }
+            .profile-img-container img { width: 200px; height: 200px; }
+            .nav-links { display: none; } /* Add a JS burger menu later */
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-dim);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- NAVBAR (RESPONSIVE) -->
-<nav>
-    <div class="logo">PICH BRAK</div>
+    <nav>
+        <div class="logo">PICH.DEV</div>
+        <div class="nav-links">
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
 
-    <!-- MOBILE MENU ICON -->
-    <div class="menu-toggle" id="menu-toggle">
-        ☰
-    </div>
+    <header class="hero">
+        <div class="hero-text">
+            <h2>Hello, I'm</h2>
+            <h1>Pich Brak</h1>
+            <p>A <strong>Junior Web Developer</strong> specializing in building clean, functional, and user-centric digital experiences with PHP, Laravel, and Modern JS.</p>
+            
+            <div class="badge-container">
+                <span class="badge">PHP</span>
+                <span class="badge">Laravel</span>
+                <span class="badge">WordPress</span>
+                <span class="badge">Vue.js</span>
+                <span class="badge">MySQL</span>
+            </div>
 
-    <!-- NAV LINKS -->
-    <div class="nav-links" id="nav-links">
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </div>
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-
-    <div class="fade-up">
-
-        <h1>Pich Brak</h1>
-
-        <h2 class="typing">
-            Junior Web Developer|UX/UI Designer
-        </h2>
-
-        <p>
-            Passionate Junior Web Developer with hands-on experience in PHP,
-            Laravel, WordPress, MySQL, HTML, CSS, and JavaScript.
-            Interested in building responsive websites, learning modern web
-            technologies, and growing within a professional development team.
-        </p>
-
-        <div style="margin-top:20px;">
-            <span class="badge">PHP</span>
-            <span class="badge">Laravel</span>
-            <span class="badge">WordPress</span>
-            <span class="badge">MySQL</span>
-            <span class="badge">JavaScript</span>
-            <span class="badge">Vue.js</span>
+            <a href="Pich_Brak.pdf" class="btn" download>Download Resume</a>
         </div>
 
-        <a href="Pich_Brak.pdf" class="btn" download>
-            Download CV
-        </a>
-
-    </div>
-
-    <div class="profile">
-        <img src="IMG_9640.JPG" alt="Pich Brak">
-    </div>
-
-</header>
-
-<!-- CAREER OBJECTIVE -->
-<section class="fade-up">
-
-    <h2 class="section-title">Career Objective</h2>
-
-    <div class="card">
-        Seeking an entry-level web development opportunity where I can apply
-        my knowledge of PHP, Laravel, WordPress, and MySQL while continuing
-        to learn, contribute to real-world projects, and grow as a software
-        developer.
-    </div>
-
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience" class="fade-up">
-
-    <h2 class="section-title">Experience</h2>
-
-    <div class="card">
-
-        <h3>WordPress UX/UI Designer</h3>
-        <p><strong>Our Stuff Carpet | Dec 2025 – Present</strong></p>
-
-        <ul>
-            <li>Designed and maintained responsive WordPress websites.</li>
-            <li>Improved UX/UI for company websites and landing pages.</li>
-            <li>Created SEO-friendly content and optimized website performance.</li>
-            <li>Updated product pages, banners, and digital content.</li>
-            <li>Used WordPress, Elementor, Canva, HTML, CSS, and SEO tools.</li>
-            <li>Created QR codes for digital marketing campaigns.</li>
-            <li>Managed and published digital content across YouTube, Google Business Profile, Google Maps, Telegram Channel, and LinkedIn.</li>
-        </ul>
-
-    </div>
-
-    <div class="card">
-
-        <h3>IT Software Support Intern</h3>
-        <p><strong>103 NPT Digital Technology PLC | Aug 2025 – Nov 2025</strong></p>
-
-        <ul>
-            <li>Provided technical support to users.</li>
-            <li>Diagnosed and resolved software issues.</li>
-            <li>Tested DiERP modules for quality assurance.</li>
-            <li>Assisted with UI design using Figma.</li>
-            <li>Reported bugs and supported QA processes.</li>
-        </ul>
-
-    </div>
-
-</section>
-
-<!-- SKILLS -->
-<section id="skills" class="fade-up">
-
-    <h2 class="section-title">Technical Skills</h2>
-
-    <div class="card">
-        <p><strong>Programming:</strong> PHP, JavaScript, HTML5, CSS3</p>
-        <p><strong>Frameworks:</strong> Laravel, Vue.js</p>
-        <p><strong>CMS:</strong> WordPress, Elementor</p>
-        <p><strong>Database:</strong> MySQL</p>
-        <p><strong>Tools:</strong> Git, GitHub, VS Code, Figma, Canva</p>
-        <p><strong>Other:</strong> Responsive Design, UI/UX, SEO Basics</p>
-    </div>
-
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="fade-up">
-
-    <h2 class="section-title">Projects</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <h3>Coffee Shop POS System</h3>
-            <p><strong>Backend Developer & QA Manager</strong></p>
-            <ul>
-                <li>Developed backend modules using PHP and MySQL.</li>
-                <li>Managed products, orders, inventory, and payments.</li>
-                <li>Created and tested SQL queries.</li>
-                <li>Performed QA testing and bug fixing.</li>
-            </ul>
+        <div class="profile-img-container">
+            <!-- Replace with your actual image path -->
+            <img src="IMG_9640.JPG" alt="Pich Brak">
         </div>
+    </header>
 
-        <div class="card">
-            <h3>Video Downloader & Editing Application</h3>
-            <p><strong>Python Team Project</strong></p>
-            <ul>
-                <li>Built a video downloader and editor using Python.</li>
-                <li>Created user interface with Tkinter.</li>
-                <li>Used Git for collaboration.</li>
-                <li>Fixed bugs and improved performance.</li>
-            </ul>
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>WordPress UX/UI Designer</h3>
+                <p style="color: var(--accent); font-size: 0.8rem;">Our Stuff Carpet | 2025 - Present</p>
+                <ul>
+                    <li>Designed responsive WordPress sites using Elementor.</li>
+                    <li>Optimized SEO and website performance metrics.</li>
+                    <li>Managed cross-platform digital content strategy.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>IT Software Support Intern</h3>
+                <p style="color: var(--accent); font-size: 0.8rem;">103 NPT Digital Technology | 2025</p>
+                <ul>
+                    <li>Diagnosed and resolved software technical issues.</li>
+                    <li>Conducted QA testing for ERP modules.</li>
+                    <li>Collaborated on UI designs using Figma.</li>
+                </ul>
+            </div>
         </div>
+    </section>
 
-        <div class="card">
-            <h3>E-Commerce Website</h3>
-            <ul>
-                <li>Built shopping cart functionality.</li>
-                <li>Implemented product filtering.</li>
-                <li>Designed responsive user interface.</li>
-                <li>Used HTML, CSS, JavaScript, and MySQL.</li>
-            </ul>
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Coffee Shop POS</h3>
+                <p style="color: var(--text-dim); margin-bottom: 1rem;">Full-stack application managing inventory, sales, and reporting.</p>
+                <div class="badge-container">
+                    <span class="badge">PHP</span>
+                    <span class="badge">MySQL</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Video Downloader</h3>
+                <p style="color: var(--text-dim); margin-bottom: 1rem;">Python-based desktop utility with a custom Tkinter GUI.</p>
+                <div class="badge-container">
+                    <span class="badge">Python</span>
+                    <span class="badge">Tkinter</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>E-Commerce Engine</h3>
+                <p style="color: var(--text-dim); margin-bottom: 1rem;">Dynamic shopping cart system with real-time product filtering.</p>
+                <div class="badge-container">
+                    <span class="badge">JS</span>
+                    <span class="badge">CSS3</span>
+                </div>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <section id="contact" style="text-align: center;">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+            <p>I'm currently looking for new opportunities in Phnom Penh or Remote.</p>
+            <p style="margin: 1rem 0; color: var(--accent);">pichbrak703@gmail.com</p>
+            <a href="mailto:pichbrak703@gmail.com" class="btn">Say Hello</a>
+        </div>
+    </section>
 
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="fade-up">
-
-    <h2 class="section-title">Contact</h2>
-
-    <div class="card contact">
-        <p><strong>Email:</strong> pichbrak703@gmail.com</p>
-        <p><strong>Phone:</strong> 096 743 3572</p>
-        <p><strong>Location:</strong> Phnom Penh, Cambodia</p>
-
-        <a href="mailto:pichbrak703@gmail.com" class="btn">
-            Send Email
-        </a>
-    </div>
-
-</section>
-
-<!-- FOOTER -->
-<footer>
-    © 2026 Pich Brak | Junior Web Developer Portfolio
-</footer>
-
-<!-- JS -->
-<script src="js.js"></script>
+    <footer>
+        <p>&copy; 2026 Pich Brak. Built with passion and code.</p>
+    </footer>
 
 </body>
 </html>
