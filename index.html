@@ -384,7 +384,7 @@
 
     .profile-img-container img {
         width: 180px;
-        height: 180px;
+        height: 300px;
     }
 
     .btn {
@@ -421,6 +421,17 @@
         padding: 2rem 1rem;
         font-size: 0.85rem;
     }
+    @media (max-width: 768px) {
+    .profile-img-container img {
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-img-container img {
+        max-width: 180px;
+    }
+}
 }
     </style>
 </head>
