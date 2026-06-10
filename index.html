@@ -192,6 +192,9 @@
         .profile-img-container img {
             width: 340px;
             height: 340px;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             object-fit: cover;
             border: 3px solid var(--primary);
@@ -313,7 +316,6 @@
             display: inline-block;
             padding: 14px 36px;
             background: var(--gradient);
-            color: var(--bg);
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -419,6 +421,10 @@
                 justify-content: center;
             }
 
+            .profile-img-container {
+                width: 100%;
+            }
+
             .profile-img-container img { 
                 width: 260px; 
                 height: 260px; 
@@ -433,6 +439,10 @@
                 font-size: 1rem;
                 letter-spacing: 2px;
             }
+            .profile-img-container img {
+                width: 210px;
+                height: 210px;
+            }
             .section-title {
                 font-size: 1.8rem;
                 margin-bottom: 2.5rem;
@@ -441,7 +451,7 @@
                 padding: 1.75rem;
             }
             .grid {
-                grid-template-columns: 1fr; /* Stack clean on super tiny modern screens */
+                grid-template-columns: 1fr;
             }
         }
 
