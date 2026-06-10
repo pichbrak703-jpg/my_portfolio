@@ -9,7 +9,7 @@
     
     <style>
         :root {
-            --primary: #6366f1;         /* Electric Indigo */
+            --primary: #6366f1;          /* Electric Indigo */
             --primary-glow: rgba(99, 102, 241, 0.12);
             --bg: #0b0f19;              /* Deep Cyber Space Blue */
             --card-bg: rgba(17, 24, 39, 0.7); /* Frosted Glass Layer */
@@ -40,11 +40,57 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
+        /* --- Animation Keyframes --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes floatGlow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        /* --- Scroll Reveal Framework --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays for children inside grid spaces */
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
         /* --- Global Structural Components --- */
         section {
             padding: 100px 12% 100px 12%;
             position: relative;
-            /* Prevents section headings from hiding underneath the fixed nav bar */
             scroll-margin-top: 90px; 
         }
 
@@ -66,9 +112,9 @@
         }
 
         .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px);
             border-color: var(--card-border-hover);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.05);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.08);
         }
 
         /* --- Navigation --- */
@@ -85,6 +131,7 @@
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            animation: fadeIn 1s ease forwards;
         }
 
         .logo {
@@ -120,7 +167,6 @@
             color: var(--text-main);
         }
 
-        /* Nav item hover underline animation */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -129,7 +175,7 @@
             bottom: -6px;
             left: 0;
             background-color: var(--primary);
-            transition: width 0.3s ease;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nav-links a:hover::after, .nav-links a.active::after {
@@ -159,7 +205,7 @@
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section Entry Animations --- */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -171,10 +217,6 @@
                         radial-gradient(circle at 15% 80%, var(--accent-glow) 0%, transparent 50%);
         }
 
-        .hero-text {
-            max-width: 650px;
-        }
-
         .hero-text h2 {
             font-size: 1rem;
             text-transform: uppercase;
@@ -182,6 +224,8 @@
             color: var(--accent);
             margin-bottom: 1rem;
             font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
         }
 
         .hero-text h1 {
@@ -193,6 +237,8 @@
             background: linear-gradient(180deg, #ffffff 40%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
 
         .hero-text p {
@@ -200,6 +246,8 @@
             font-size: 1.2rem;
             margin-bottom: 3rem;
             font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
         }
 
         .hero-text p strong {
@@ -207,19 +255,32 @@
             font-weight: 500;
         }
 
-        .profile-wrapper {
-            position: relative;
+        .hero .badge-container {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
         }
 
-        /* Tech frame around avatar */
+        .hero .btn {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1.2s ease 0.6s forwards;
+        }
+
+        /* Ambient Dynamic Light Ring Behind Avatar */
         .profile-wrapper::before {
             content: '';
             position: absolute;
             inset: -15px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(99,102,241,0.05), transparent);
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), transparent);
             z-index: 1;
+            animation: floatGlow 4s ease-in-out infinite;
         }
 
         .profile-img-container {
@@ -237,11 +298,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .profile-wrapper:hover .profile-img-container img {
-            transform: scale(1.05);
+            transform: scale(1.06) rotate(1deg);
         }
 
         /* --- Section Titles --- */
@@ -303,13 +364,14 @@
             font-size: 0.8rem;
             font-weight: 500;
             border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         
         .card:hover .badge {
-            background: rgba(99, 102, 241, 0.06);
+            background: rgba(99, 102, 241, 0.08);
             color: #a5b4fc;
-            border-color: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.25);
+            transform: translateY(-1px);
         }
 
         /* --- Custom Buttons --- */
@@ -323,14 +385,14 @@
             font-weight: 600;
             font-size: 0.95rem;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
         }
 
         .btn:hover {
             background: #4f46e5;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px rgba(99, 102, 241, 0.4);
         }
 
         /* --- Lists --- */
@@ -344,6 +406,11 @@
             font-size: 0.95rem;
             display: flex;
             align-items: flex-start;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover ul li {
+            color: #e5e7eb;
         }
 
         ul li::before {
@@ -466,9 +533,9 @@
         </header>
 
         <section id="experience">
-            <h2 class="section-title">Work <span>Experience</span></h2>
+            <h2 class="section-title reveal">Work <span>Experience</span></h2>
             <div class="grid">
-                <div class="card">
+                <div class="card reveal reveal-delay-1">
                     <h3>WordPress UX/UI Designer</h3>
                     <div class="card-sub">Our Stuff Carpet | 2025 - Present</div>
                     <ul>
@@ -477,7 +544,7 @@
                         <li>Managed cross-platform digital content strategy.</li>
                     </ul>
                 </div>
-                <div class="card">
+                <div class="card reveal reveal-delay-2">
                     <h3>IT Software Support Intern</h3>
                     <div class="card-sub">103 NPT Digital Technology | 2025</div>
                     <ul>
@@ -490,9 +557,9 @@
         </section>
 
         <section id="skills">
-            <h2 class="section-title">Skills & <span>Tech Stack</span></h2>
+            <h2 class="section-title reveal">Skills & <span>Tech Stack</span></h2>
             <div class="grid">
-                <div class="card">
+                <div class="card reveal reveal-delay-1">
                     <h3>Backend Architecture</h3>
                     <p class="card-description">Building structural, secure, and scalable database servers.</p>
                     <div class="badge-container">
@@ -502,7 +569,7 @@
                         <span class="badge">REST APIs</span>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card reveal reveal-delay-2">
                     <h3>Frontend Interfaces</h3>
                     <p class="card-description">Crafting pixel-perfect designs with dynamic user interactions.</p>
                     <div class="badge-container">
@@ -512,7 +579,7 @@
                         <span class="badge">Responsive Design</span>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card reveal reveal-delay-3">
                     <h3>CMS & Workflows</h3>
                     <p class="card-description">Optimizing administration layers and version management tooling.</p>
                     <div class="badge-container">
@@ -526,9 +593,9 @@
         </section>
 
         <section id="projects">
-            <h2 class="section-title">Featured <span>Projects</span></h2>
+            <h2 class="section-title reveal">Featured <span>Projects</span></h2>
             <div class="grid">
-                <div class="card">
+                <div class="card reveal reveal-delay-1">
                     <h3>Coffee Shop POS</h3>
                     <p class="card-description">Full-stack application managing critical restaurant inventory, high-concurrency sales points, and structural reporting metrics.</p>
                     <div class="badge-container">
@@ -536,7 +603,7 @@
                         <span class="badge">MySQL</span>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card reveal reveal-delay-2">
                     <h3>Video Downloader</h3>
                     <p class="card-description">Python-based desktop system designed with optimized background streaming structures and a modern standalone Tkinter GUI layout.</p>
                     <div class="badge-container">
@@ -544,7 +611,7 @@
                         <span class="badge">Tkinter</span>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card reveal reveal-delay-3">
                     <h3>E-Commerce Engine</h3>
                     <p class="card-description">Dynamic production system configured with real-time product sorting routines, quick-response memory states, and shopping modules.</p>
                     <div class="badge-container">
@@ -556,7 +623,7 @@
         </section>
 
         <section id="contact">
-            <div class="card" style="max-width: 650px; margin: 0 auto; text-align: center;">
+            <div class="card reveal" style="max-width: 650px; margin: 0 auto; text-align: center;">
                 <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: -1px;">Get In Touch</h2>
                 <p class="card-description">I am currently exploring new development opportunities in Phnom Penh or worldwide Remote setups. Let's create something functional together.</p>
                 <p style="margin-bottom: 2rem; color: var(--primary); font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem;">pichbrak703@gmail.com</p>
@@ -593,16 +660,17 @@
             });
         });
 
-        // Smart IntersectionObserver to automatically handle the active underlines on scroll
+        // Smart IntersectionObserver to automatically handle active underlines on scroll AND scroll reveal animations
         const observerOptions = {
             root: null,
-            rootMargin: '-20% 0px -60% 0px',
+            rootMargin: '-10% 0px -30% 0px',
             threshold: 0
         };
 
-        const sectionObserver = new IntersectionObserver((entries) => {
+        const globalObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                // Handle section navigation links tracking
+                if (entry.isIntersecting && entry.target.tagName === 'SECTION') {
                     const id = entry.target.getAttribute('id');
                     navItems.forEach(item => {
                         if (item.getAttribute('href') === `#${id}`) {
@@ -612,10 +680,19 @@
                         }
                     });
                 }
+                
+                // Handle Scroll Elements Reveal triggering
+                if (entry.isIntersecting && entry.target.classList.contains('reveal')) {
+                    entry.target.classList.add('active');
+                    // Stop observing once revealed to save runtime execution memory
+                    globalObserver.unobserve(entry.target);
+                }
             });
         }, observerOptions);
 
-        sections.forEach(section => sectionObserver.observe(section));
+        // Track sections and elements marked for reveals
+        sections.forEach(section => globalObserver.observe(section));
+        document.querySelectorAll('.reveal').forEach(el => globalObserver.observe(el));
 
         // Clean desktop viewport recovery on screen resizing
         window.addEventListener('resize', () => {
