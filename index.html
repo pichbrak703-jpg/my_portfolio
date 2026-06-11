@@ -82,7 +82,6 @@
             transform: translateY(0);
         }
 
-        /* Stagger delays for children inside grid spaces */
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
@@ -126,7 +125,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 15, 25, 0.7);
+            background: rgba(11, 15, 25, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
@@ -190,7 +189,7 @@
             border: none;
             cursor: pointer;
             z-index: 1001;
-            padding: 0.5rem;
+            padding: 0.75rem; /* Expanded touch zone for mobile users */
         }
 
         .menu-toggle span {
@@ -198,21 +197,21 @@
             height: 2px;
             background-color: var(--text-main);
             border-radius: 2px;
-            transition: transform 0.3s, opacity 0.3s;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* --- Hero Section Entry Animations --- */
+        /* --- Hero Section --- */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 4rem;
-            padding: 120px 12% 60px 12%;
+            padding: 140px 12% 60px 12%;
             background: radial-gradient(circle at 85% 30%, var(--primary-glow) 0%, transparent 50%),
                         radial-gradient(circle at 15% 80%, var(--accent-glow) 0%, transparent 50%);
         }
@@ -271,7 +270,6 @@
             animation: fadeIn 1.2s ease 0.6s forwards;
         }
 
-        /* Ambient Dynamic Light Ring Behind Avatar */
         .profile-wrapper::before {
             content: '';
             position: absolute;
@@ -327,7 +325,7 @@
             background: linear-gradient(to right, rgba(255, 255, 255, 0.08), transparent);
         }
 
-        /* --- Cards Typography & Internals --- */
+        /* --- Cards Typography --- */
         .card h3 {
             font-size: 1.4rem;
             font-weight: 700;
@@ -396,9 +394,7 @@
         }
 
         /* --- Lists --- */
-        ul {
-            list-style: none;
-        }
+        ul { list-style: none; }
 
         ul li {
             margin-bottom: 1rem;
@@ -409,9 +405,7 @@
             transition: color 0.3s ease;
         }
 
-        .card:hover ul li {
-            color: #e5e7eb;
-        }
+        .card:hover ul li { color: #e5e7eb; }
 
         ul li::before {
             content: "•";
@@ -432,7 +426,7 @@
             background-color: #080b12;
         }
 
-        /* --- Responsive Layout Modifications --- */
+        /* --- Responsive Queries (Fixed Layout Engine) --- */
         @media (max-width: 1200px) {
             nav, section { padding-left: 6%; padding-right: 6%; }
             .hero { padding-left: 6%; padding-right: 6%; }
@@ -460,19 +454,20 @@
             .nav-links {
                 position: fixed;
                 top: 0;
-                right: -100%;
-                width: 85%;
-                max-width: 360px;
+                right: -100vw; /* Using view-width instead of percentages fixes hardware gap scaling */
+                width: 75%;
+                max-width: 300px;
                 height: 100vh;
                 background: #0e1322;
                 border-left: 1px solid var(--card-border);
                 flex-direction: column;
                 justify-content: center;
                 align-items: flex-start;
-                padding: 4rem;
+                padding: 4rem 2.5rem;
                 gap: 2.5rem;
                 transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 z-index: 1000;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
             }
 
             .nav-links.active { right: 0; }
@@ -494,7 +489,7 @@
 
     <nav>
         <a href="#" class="logo">PICH<span>.</span>DEV</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu" aria-expanded="false" onclick="toggleMenu()">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -642,25 +637,32 @@
         const navItems = document.querySelectorAll('.nav-item');
         const sections = document.querySelectorAll('section');
 
-        // Toggle mobile menu view cleanly
+        // Centralized Menu Control System (Fixed JS execution scope)
+        function closeMenu() {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
         function toggleMenu() {
             const isOpen = navLinks.classList.toggle('active');
             menuToggle.classList.toggle('open');
             menuToggle.setAttribute('aria-expanded', isOpen);
         }
 
-        // Close mobile menu completely if clicking a mobile navigation item
+        // Native Modern Listener attachments
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // Close mobile drawer when selection items get tapped
         navItems.forEach(item => {
             item.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('open');
-                    menuToggle.setAttribute('aria-expanded', 'false');
+                    closeMenu();
                 }
             });
         });
 
-        // Smart IntersectionObserver to automatically handle active underlines on scroll AND scroll reveal animations
+        // IntersectionObserver for handling animations & underlines
         const observerOptions = {
             root: null,
             rootMargin: '-10% 0px -30% 0px',
@@ -669,7 +671,7 @@
 
         const globalObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Handle section navigation links tracking
+                // Tracking Active Navigation State
                 if (entry.isIntersecting && entry.target.tagName === 'SECTION') {
                     const id = entry.target.getAttribute('id');
                     navItems.forEach(item => {
@@ -681,25 +683,21 @@
                     });
                 }
                 
-                // Handle Scroll Elements Reveal triggering
+                // Triggering Slide Animations
                 if (entry.isIntersecting && entry.target.classList.contains('reveal')) {
                     entry.target.classList.add('active');
-                    // Stop observing once revealed to save runtime execution memory
                     globalObserver.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        // Track sections and elements marked for reveals
         sections.forEach(section => globalObserver.observe(section));
         document.querySelectorAll('.reveal').forEach(el => globalObserver.observe(el));
 
-        // Clean desktop viewport recovery on screen resizing
+        // Window resize safe resets
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                navLinks.classList.remove('active');
-                menuToggle.classList.remove('open');
-                menuToggle.setAttribute('aria-expanded', 'false');
+                closeMenu();
             }
         });
     </script>
